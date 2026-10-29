@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steven Zamora — Digital Design Studio</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Steven Zamora is a digital designer creating illustration, identity and artwork for brands that want to be remembered.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #f5f1ea;
+    --paper: #ece6db;
+    --sand: #d9cfbf;
+    --ink: #1b1a17;
+    --ink-soft: #4a463f;
+    --muted: #8a8378;
+    --brass: #a8834f;
+    --oxblood: #5b1f1f;
+    --line: rgba(27, 26, 23, 0.14);
+    --serif: "Cormorant Garamond", "Times New Roman", serif;
+    --sans: "Manrope", system-ui, -apple-system, sans-serif;
+    --gutter: clamp(20px, 5vw, 72px);
+    --max: 1320px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .serif { font-family: var(--serif); }
+  em, .italic { font-family: var(--serif); font-style: italic; font-weight: 400; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 17px 30px;
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+    border: 1px solid var(--ink);
+    transition: background .35s ease, color .35s ease, gap .35s ease;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .btn-solid { background: var(--ink); color: var(--ivory); }
+  .btn-solid:hover { background: var(--oxblood); border-color: var(--oxblood); gap: 20px; }
+  .btn-ghost { background: transparent; color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--ivory); gap: 20px; }
+  .btn .arrow { font-family: var(--serif); font-size: 18px; line-height: 0; }
+
+  .link-underline {
+    position: relative; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500;
+  }
+  .link-underline::after {
+    content: ""; position: absolute; left: 0; bottom: -6px; width: 100%; height: 1px;
+    background: currentColor; transform-origin: right; transition: transform .45s ease;
+  }
+  .link-underline:hover::after { transform: scaleX(0); }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    transition: background .4s ease, border-color .4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled { background: rgba(245, 241, 234, 0.92); backdrop-filter: blur(10px); border-color: var(--line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .wordmark { display: flex; align-items: center; gap: 14px; }
+  .monogram {
+    width: 40px; height: 40px; border: 1px solid var(--ink); border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic; font-size: 17px; letter-spacing: -0.02em;
+  }
+  .wordmark-name { font-family: var(--serif); font-size: 22px; letter-spacing: 0.02em; }
+  .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+  .nav-links a:not(.btn) { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); transition: color .3s; }
+  .nav-links a:not(.btn):hover { color: var(--ink); }
+  .nav .btn { padding: 13px 22px; }
+  .menu-toggle { display: none; background: none; border: 0; cursor: pointer; width: 32px; height: 32px; position: relative; }
+  .menu-toggle span { position: absolute; left: 4px; right: 4px; height: 1px; background: var(--ink); transition: transform .3s, top .3s; }
+  .menu-toggle span:first-child { top: 12px; }
+  .menu-toggle span:last-child { top: 20px; }
+  .nav.open .menu-toggle span:first-child { top: 16px; transform: rotate(45deg); }
+  .nav.open .menu-toggle span:last-child { top: 16px; transform: rotate(-45deg); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 150px 0 0; }
+  .hero-head {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end;
+    padding-bottom: 56px;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(48px, 8.2vw, 124px);
+    line-height: 0.92; letter-spacing: -0.025em;
+  }
+  .hero h1 em { color: var(--oxblood); }
+  .hero-aside { padding-bottom: 12px; }
+  .hero-aside p { color: var(--ink-soft); font-size: 17px; max-width: 400px; margin: 18px 0 32px; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .collage {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    height: min(86vh, 860px);
+    min-height: 560px;
+  }
+  .collage .tile:first-child { grid-row: 1 / span 2; }
+
+  /* Photo tile with graceful placeholder until a real image is added */
+  .tile {
+    position: relative; overflow: hidden; background: var(--paper);
+  }
+  .tile img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
+    z-index: 2;
+  }
+  .tile:hover img { transform: scale(1.04); }
+  .tile img.slide { opacity: 0; transition: opacity 1.4s ease, transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  .tile img.slide.active { opacity: 1; }
+  .cap-text { transition: opacity .5s ease; }
+  .cap-text.fading { opacity: 0; }
+  .placeholder {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    color: var(--ink);
+  }
+  .placeholder svg { width: 38%; max-width: 220px; height: auto; opacity: .85; }
+  .tile.t-oxblood { background: var(--oxblood); }
+  .tile.t-oxblood .placeholder { color: var(--ivory); }
+  .tile.t-sand { background: var(--sand); }
+  .tile.t-ink { background: #26241f; }
+  .tile.t-ink .placeholder { color: var(--sand); }
+  .tile-caption {
+    position: absolute; left: 22px; bottom: 20px; z-index: 3;
+    display: flex; gap: 12px; align-items: baseline;
+    font-size: 11px; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--ivory);
+  }
+  .tile:has(img)::after {
+    content: ""; position: absolute; inset: auto 0 0 0; height: 32%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to top, rgba(20,18,15,.55), rgba(20,18,15,0));
+  }
+  .tile-caption .num { font-family: var(--serif); font-style: italic; font-size: 15px; letter-spacing: 0; text-transform: none; }
+
+  /* ---------- Marquee ---------- */
+  .marquee {
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    margin-top: 96px; overflow: hidden; padding: 30px 0;
+  }
+  .marquee-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
+  .marquee-track span {
+    font-family: var(--serif); font-size: clamp(28px, 4vw, 52px); line-height: 1;
+    padding: 0 34px; white-space: nowrap;
+  }
+  .marquee-track span.dot { color: var(--brass); padding: 0; font-size: clamp(20px, 2.4vw, 30px); align-self: center; }
+  .marquee-track span:nth-child(4n+3) { font-style: italic; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ---------- Section scaffolding ---------- */
+  section { position: relative; }
+  .section { padding: clamp(96px, 13vw, 180px) 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 72px; flex-wrap: wrap; }
+  .section-head h2, .h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(40px, 5.6vw, 80px); line-height: 1; letter-spacing: -0.02em;
+  }
+  .section-index { font-family: var(--serif); font-style: italic; color: var(--brass); font-size: 18px; margin-bottom: 18px; display: block; }
+
+  /* ---------- Intro statement ---------- */
+  .statement p {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 50px); line-height: 1.22; letter-spacing: -0.01em;
+    max-width: 1080px;
+  }
+  .statement p em { color: var(--oxblood); }
+  .statement .sig { margin-top: 44px; display: flex; align-items: center; gap: 18px; }
+  .statement .sig::before { content: ""; width: 56px; height: 1px; background: var(--ink); }
+
+  /* ---------- Services ---------- */
+  .services { background: var(--paper); }
+  .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+  .service {
+    padding: 44px 32px 48px 0; border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .service + .service { padding-left: 32px; }
+  .service:last-child { border-right: 0; }
+  .service-icon { width: 56px; height: 56px; color: var(--ink); }
+  .service h3 { font-family: var(--serif); font-weight: 500; font-size: 32px; line-height: 1; }
+  .service p { color: var(--ink-soft); font-size: 15px; }
+  .service .num { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 15px; }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(48px, 8vw, 128px); align-items: start; }
+  .about-photo { position: sticky; top: 120px; }
+  .about-photo .tile { aspect-ratio: 4 / 5; }
+  .about-photo figcaption { margin-top: 16px; display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); letter-spacing: .08em; }
+  .about-copy h2 { margin-bottom: 44px; }
+  .about-copy h2 em { color: var(--oxblood); }
+  .about-copy p { color: var(--ink-soft); font-size: 17px; margin-bottom: 24px; max-width: 600px; }
+  .about-copy p.lead { font-family: var(--serif); font-size: 26px; line-height: 1.4; color: var(--ink); }
+  .about-copy p.lead::first-letter {
+    float: left; font-size: 88px; line-height: .8; padding: 8px 12px 0 0; color: var(--oxblood); font-style: italic;
+  }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 56px; border-top: 1px solid var(--line); }
+  .stat { padding: 28px 0 0; }
+  .stat strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 56px; line-height: 1; }
+  .stat strong sup { font-size: 24px; color: var(--brass); vertical-align: top; margin-left: 2px; }
+  .stat span { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---------- Process ---------- */
+  .process { background: var(--ink); color: var(--ivory); }
+  .process .eyebrow, .process .section-index { color: var(--brass); }
+  .process-list { list-style: none; border-top: 1px solid rgba(245,241,234,.16); }
+  .process-list li {
+    display: grid; grid-template-columns: 120px 1fr 1.2fr; gap: 40px; align-items: baseline;
+    padding: 40px 0; border-bottom: 1px solid rgba(245,241,234,.16);
+    transition: padding .4s ease;
+  }
+  .process-list li:hover { padding-left: 16px; }
+  .process-list .step { font-family: var(--serif); font-style: italic; color: var(--brass); font-size: 22px; }
+  .process-list h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.4vw, 46px); line-height: 1; }
+  .process-list p { color: rgba(245,241,234,.66); font-size: 16px; }
+
+  /* ---------- Clients ---------- */
+  .clients-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
+  .client { display: block; }
+  .client-media { aspect-ratio: 4 / 3; }
+  .client-meta {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: baseline;
+    padding: 26px 0; border-bottom: 1px solid var(--line);
+  }
+  .client-meta .num { font-family: var(--serif); font-style: italic; color: var(--brass); font-size: 18px; }
+  .client-meta h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3vw, 44px); line-height: 1; margin-bottom: 10px; transition: color .3s; }
+  .client .visit { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; white-space: nowrap; }
+  .client .visit .arrow { display: inline-block; transition: transform .35s ease; }
+  .client:hover h3 { color: var(--oxblood); }
+  .client:hover .visit .arrow { transform: translate(3px, -3px); }
+
+  /* ---------- Testimonial ---------- */
+  .quote { background: var(--paper); text-align: center; }
+  .quote blockquote {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(30px, 4vw, 56px); line-height: 1.18; letter-spacing: -0.01em;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .quote blockquote::before { content: "“"; display: block; font-size: 1.8em; line-height: .6; color: var(--brass); margin-bottom: 18px; }
+  .quote cite { display: block; margin-top: 40px; font-style: normal; }
+  .quote cite strong { display: block; font-weight: 500; font-size: 14px; letter-spacing: .1em; }
+
+  /* ---------- CTA / Contact ---------- */
+  .contact { background: var(--oxblood); color: var(--ivory); overflow: hidden; }
+  .contact .eyebrow { color: rgba(245,241,234,.6); }
+  .contact-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(48px, 8vw, 120px); }
+  .contact h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(52px, 8vw, 118px); line-height: .92; letter-spacing: -0.025em;
+    margin: 24px 0 36px;
+  }
+  .contact-lede { font-size: 17px; color: rgba(245,241,234,.75); max-width: 440px; margin-bottom: 44px; }
+
+  form { display: grid; gap: 26px; align-content: start; }
+  .field { display: grid; gap: 8px; }
+  .field label { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: rgba(245,241,234,.6); }
+  .field input, .field select, .field textarea {
+    background: transparent; border: 0; border-bottom: 1px solid rgba(245,241,234,.3);
+    color: var(--ivory); font-family: var(--serif); font-size: 22px; padding: 6px 0 12px;
+    outline: none; transition: border-color .3s; border-radius: 0; width: 100%;
+  }
+  .field textarea { resize: vertical; min-height: 96px; font-size: 20px; }
+  .field select { appearance: none; cursor: pointer; }
+  .field select option { color: var(--ink); }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ivory); }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(245,241,234,.35); }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips label {
+    border: 1px solid rgba(245,241,234,.35); padding: 10px 18px; border-radius: 999px;
+    font-size: 13px; letter-spacing: .04em; text-transform: none; color: var(--ivory); cursor: pointer;
+    transition: background .3s, color .3s, border-color .3s;
+  }
+  .chips input:checked + label { background: var(--ivory); color: var(--oxblood); border-color: var(--ivory); }
+  .chips input:focus-visible + label { outline: 1px solid var(--ivory); outline-offset: 3px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .contact .btn-solid { background: var(--ivory); color: var(--oxblood); border-color: var(--ivory); justify-self: start; }
+  .contact .btn-solid:hover { background: transparent; color: var(--ivory); }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--ink); color: rgba(245,241,234,.6); padding: 80px 0 40px; }
+  .footer-big {
+    font-family: var(--serif); color: var(--ivory); font-weight: 400;
+    font-size: clamp(56px, 13vw, 200px); line-height: .85; letter-spacing: -0.035em;
+    white-space: nowrap;
+  }
+  .footer-big em { color: var(--brass); }
+  .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-top: 64px; padding-top: 28px; border-top: 1px solid rgba(245,241,234,.14); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .footer-row nav { display: flex; gap: 28px; flex-wrap: wrap; }
+  .footer-row a:hover { color: var(--ivory); }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: .12s; } .d2 { transition-delay: .24s; } .d3 { transition-delay: .36s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .marquee-track { animation: none; }
+    .tile img, .tile:hover img { transition: none; transform: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1024px) {
+    .service-grid { grid-template-columns: 1fr 1fr; }
+    .service:nth-child(2) { border-right: 0; }
+    .service:nth-child(3) { padding-left: 0; }
+    .service:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .process-list li { grid-template-columns: 80px 1fr; }
+    .process-list p { grid-column: 2; }
+  }
+  @media (max-width: 860px) {
+    .nav-links { position: fixed; inset: 84px 0 auto 0; flex-direction: column; align-items: flex-start; gap: 26px; padding: 32px var(--gutter) 40px; background: var(--ivory); border-bottom: 1px solid var(--line); transform: translateY(-12px); opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; }
+    .nav.open .nav-links { opacity: 1; transform: none; pointer-events: auto; }
+    .nav.open { background: var(--ivory); }
+    .menu-toggle { display: block; }
+    .hero { padding-top: 124px; }
+    .hero-head { grid-template-columns: 1fr; gap: 8px; padding-bottom: 40px; }
+    .collage { height: auto; min-height: 0; grid-template-columns: 1fr 1fr; grid-template-rows: 300px 300px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .about-photo { position: relative; top: 0; }
+    .clients-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .collage { grid-template-columns: 1fr; grid-template-rows: 440px 260px 260px; }
+    .collage .tile:first-child { grid-row: auto; }
+    .service-grid { grid-template-columns: 1fr; }
+    .service, .service + .service { padding: 36px 0; border-right: 0; border-top: 1px solid var(--line); }
+    .service:first-child { border-top: 0; }
+    .stats { grid-template-columns: 1fr 1fr 1fr; }
+    .stat strong { font-size: 40px; }
+    .two { grid-template-columns: 1fr; }
+    .process-list li { grid-template-columns: 1fr; gap: 12px; }
+    .process-list p { grid-column: auto; }
+    .client-meta { grid-template-columns: 1fr auto; }
+    .client-meta .num { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable product line-art (used as photo placeholders + service icons) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-pen" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M50 10 L72 44 L58 88 L42 88 L28 44 Z"/>
+      <path d="M50 10 L50 58"/><circle cx="50" cy="63" r="5"/>
+      <path d="M36 76 h28"/>
+    </symbol>
+    <symbol id="i-mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+      <circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="26"/>
+      <path d="M50 12 V88 M12 50 H88"/>
+    </symbol>
+    <symbol id="i-type" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M14 80 L34 22 L54 80 M21 60 H47"/>
+      <path d="M86 52 C86 44, 66 42, 64 54 C62 66, 76 72, 86 64 M86 44 V80"/>
+      <path d="M10 88 H90"/>
+    </symbol>
+    <symbol id="i-system" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+      <rect x="14" y="14" width="32" height="32"/><circle cx="70" cy="30" r="16"/>
+      <path d="M30 56 L48 86 L12 86 Z"/><path d="M54 86 A32 32 0 0 1 86 54 V86 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="wordmark" aria-label="Steven Zamora, home">
+      <img src="logo/steven-zamora-mark.svg" alt="" width="46" height="46">
+      <span class="wordmark-name">Steven Zamora</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#craft">The Craft</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#contact" class="btn btn-solid">Start a project <span class="arrow">→</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-head">
+        <h1 class="reveal">Designed to be<br><em>remembered.</em></h1>
+        <div class="hero-aside reveal d1">
+          <span class="eyebrow">Digital Design Studio — 15 Years of Art</span>
+          <p>Steven Zamora creates illustration, identity and artwork for brands that refuse to be forgettable — designed to live anywhere your brand does.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-solid">Commission Steven <span class="arrow">→</span></a>
+            <a href="#clients" class="btn btn-ghost">Selected clients</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drop photos into /images with these filenames to replace the placeholders -->
+      <div class="collage reveal d2">
+        <figure class="tile t-sand">
+          <div class="placeholder"><svg><use href="#i-pen"/></svg></div>
+          <img class="slide active" src="images/Left-tall.png" alt="Hand-painted illustration of coffee cherries and leaves by Steven Zamora" data-caption="Coffee Botanicals — Illustration" style="object-position:50% 45%" onerror="this.remove()">
+          <img class="slide" src="images/fuel-the-visual.png" alt="Fuel the Vision line illustration by Steven Zamora" data-caption="Fuel the Vision — Illustration" style="object-position:50% 40%" loading="lazy" onerror="this.remove()">
+          <img class="slide" src="images/ice-cream-shirt.png" alt="Strawberry sundae illustration by Steven Zamora" data-caption="Strawberry Sundae — Illustration" style="object-position:50% 45%" loading="lazy" onerror="this.remove()">
+          <figcaption class="tile-caption"><span class="num">i.</span> <span class="cap-text">Coffee Botanicals — Illustration</span></figcaption>
+        </figure>
+        <figure class="tile t-oxblood">
+          <div class="placeholder"><svg><use href="#i-mark"/></svg></div>
+          <img class="slide active" src="images/top-left.png" alt="Brim Coffee original floral canvas artwork by Steven Zamora" data-caption="Brim Coffee — Original Artwork" style="object-position:50% 50%" onerror="this.remove()">
+          <img class="slide" src="images/xpel-t-shirt.png" alt="XPEL race car illustration by Steven Zamora" data-caption="XPEL — Illustration" style="object-position:50% 45%" loading="lazy" onerror="this.remove()">
+          <img class="slide" src="images/tumbler.png" alt="Illustration of a figure carrying a cross beneath blue and white clouds by Steven Zamora" data-caption="John 14:6 — Illustration" style="object-position:50% 55%" loading="lazy" onerror="this.remove()">
+          <img class="slide" src="images/IMG_4703.png" alt="Red graffiti-style lettering artwork by Steven Zamora" data-caption="Street Script — Lettering" style="object-position:50% 55%" loading="lazy" onerror="this.remove()">
+          <figcaption class="tile-caption"><span class="num">ii.</span> <span class="cap-text">Brim Coffee — Original Artwork</span></figcaption>
+        </figure>
+        <figure class="tile t-ink">
+          <div class="placeholder"><svg><use href="#i-system"/></svg></div>
+          <img class="slide active" src="images/bottom-right.png" alt="Press character artwork by Steven Zamora" data-caption="Press — Character" style="object-position:50% 45%" onerror="this.remove()">
+          <img class="slide" src="images/framed-coffee.jpg" alt="Espresso machine illustration with script lettering by Steven Zamora" data-caption="Espresso — Illustration" style="object-position:50% 45%" loading="lazy" onerror="this.remove()">
+          <img class="slide" src="images/toat-2.png" alt="Strawberry sundae illustration with fresh strawberries and leaves by Steven Zamora" data-caption="Strawberry Sundae — Illustration" style="object-position:50% 62%" loading="lazy" onerror="this.remove()">
+          <figcaption class="tile-caption"><span class="num">iii.</span> <span class="cap-text">Press — Character</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Illustration</span><span class="dot">✦</span><span>Brand Identity</span><span class="dot">✦</span><span>Lettering</span><span class="dot">✦</span><span>Visual Systems</span><span class="dot">✦</span><span>Character Design</span><span class="dot">✦</span><span>Art Direction</span><span class="dot">✦</span>
+        <span>Illustration</span><span class="dot">✦</span><span>Brand Identity</span><span class="dot">✦</span><span>Lettering</span><span class="dot">✦</span><span>Visual Systems</span><span class="dot">✦</span><span>Character Design</span><span class="dot">✦</span><span>Art Direction</span><span class="dot">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="section statement">
+    <div class="wrap">
+      <span class="eyebrow reveal">The Philosophy</span>
+      <p class="reveal d1" style="margin-top:28px">Great design isn't tied to a format. Steven builds artwork with <em>a point of view</em> — work that holds its character on a screen, a storefront, or anywhere a brand shows up next. That's when a logo stops being a mark and becomes <em>a brand people choose.</em></p>
+      <div class="sig reveal d2"><span class="eyebrow">Steven Zamora</span></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section services" id="craft">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-index reveal">— The Craft</span>
+          <h2 class="reveal d1">One designer.<br><em>Every canvas.</em></h2>
+        </div>
+        <a href="#contact" class="link-underline reveal d2">Discuss your brief</a>
+      </div>
+      <div class="service-grid">
+        <article class="service reveal">
+          <span class="num">01</span>
+          <svg class="service-icon"><use href="#i-pen"/></svg>
+          <h3>Illustration</h3>
+          <p>Hand-drawn character refined digitally — original artwork that gives a brand a voice no stock library can.</p>
+        </article>
+        <article class="service reveal d1">
+          <span class="num">02</span>
+          <svg class="service-icon"><use href="#i-mark"/></svg>
+          <h3>Brand Identity</h3>
+          <p>Marks, monograms and palettes with a clear point of view — built to feel as good small as they do large.</p>
+        </article>
+        <article class="service reveal d2">
+          <span class="num">03</span>
+          <svg class="service-icon"><use href="#i-type"/></svg>
+          <h3>Lettering</h3>
+          <p>Custom type and hand lettering that turns a phrase into a signature — the line people remember.</p>
+        </article>
+        <article class="service reveal d3">
+          <span class="num">04</span>
+          <svg class="service-icon"><use href="#i-system"/></svg>
+          <h3>Visual Systems</h3>
+          <p>Patterns, motifs and rules that let your brand stretch across any format without losing itself.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <figure class="about-photo reveal">
+        <div class="tile t-sand">
+          <div class="placeholder"><span class="serif" style="font-size:96px;font-style:italic;opacity:.5">SZ</span></div>
+          <img src="images/about%20me.jpg" alt="Portrait of Steven Zamora" style="object-position:36% 30%" onerror="this.remove()">
+        </div>
+        <figcaption><span>Steven Zamora</span><span>Artist &amp; designer</span></figcaption>
+      </figure>
+
+      <div class="about-copy">
+        <span class="section-index reveal">— How it started</span>
+        <h2 class="h2 reveal d1">A sketchbook,<br>a market stall, and <em>a first canvas.</em></h2>
+        <p class="lead reveal">It started with characters. For fifteen years Steven has been drawing them — filling sketchbooks, sharing the process on social media, and selling his art at local markets.</p>
+        <p class="reveal">Those markets and feeds became his proving ground: a place to test ideas, meet people face to face, and learn what makes someone stop and look twice. His audience grew one post and one conversation at a time.</p>
+        <p class="reveal">Then came his first client. Brim Coffee asked Steven to create an original canvas painting for their branding — hand-drawn florals, coffee beans and lettering that gave the brand a look entirely its own.</p>
+        <p class="reveal">Today Steven brings that same hand-made character to every brand he works with — illustration, identity and artwork that extends a brand rather than just repeating it, delivered as flexible files that work wherever you take them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section process">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-index reveal">— The Process</span>
+          <h2 class="reveal d1">From idea to <em>identity.</em></h2>
+        </div>
+      </div>
+      <ol class="process-list">
+        <li class="reveal"><span class="step">i.</span><h3>Discovery</h3><p>A conversation about your brand, your audience and where the work will live — a launch, a campaign, a storefront, a screen.</p></li>
+        <li class="reveal"><span class="step">ii.</span><h3>Direction</h3><p>Moodboards, palettes and rough concepts, so every piece of the work feels like one considered family.</p></li>
+        <li class="reveal"><span class="step">iii.</span><h3>Design</h3><p>Refined artwork shown in context, revised together until it's unmistakably yours.</p></li>
+        <li class="reveal"><span class="step">iv.</span><h3>Delivery</h3><p>Layered source files, vector exports, color specs and usage guides — ready for any format, platform or partner you choose.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section class="section" id="clients">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-index reveal">— Companies worked with</span>
+          <h2 class="reveal d1">In good <em>company.</em></h2>
+        </div>
+        <p class="reveal d2" style="max-width:360px;color:var(--ink-soft)">Independent brands that trusted Steven to shape how they look and feel.</p>
+      </div>
+      <div class="clients-grid">
+        <a class="client reveal" href="https://the-press-espresso.myshopify.com/" target="_blank" rel="noopener">
+          <div class="tile client-media t-ink">
+            <img src="images/bottom-right.png" alt="Press character artwork by Steven Zamora for The Press Espresso" style="object-position:50% 45%" onerror="this.remove()">
+          </div>
+          <div class="client-meta">
+            <span class="num">01</span>
+            <div>
+              <h3>The Press Espresso</h3>
+              <span class="eyebrow">Character design · Lettering</span>
+            </div>
+            <span class="visit">Visit <span class="arrow">↗</span></span>
+          </div>
+        </a>
+        <a class="client reveal d1" href="https://brimcoffeellc.toast.site/" target="_blank" rel="noopener">
+          <div class="tile client-media t-sand">
+            <img src="images/top-left.png" alt="Brim Coffee original floral canvas artwork by Steven Zamora" style="object-position:50% 50%" onerror="this.remove()">
+          </div>
+          <div class="client-meta">
+            <span class="num">02</span>
+            <div>
+              <h3>Brim Coffee</h3>
+              <span class="eyebrow">First client · Original canvas artwork</span>
+            </div>
+            <span class="visit">Visit <span class="arrow">↗</span></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="eyebrow reveal">Now booking — limited projects per season</span>
+        <h2 class="reveal d1">Let's make<br>your brand<br><em>unforgettable.</em></h2>
+        <p class="contact-lede reveal d2">Tell Steven a little about your company and what you're dreaming up. You'll hear back within two business days.</p>
+      </div>
+
+      <form id="inquiry" class="reveal d2" novalidate>
+        <div class="two">
+          <div class="field"><label for="fullname">Your name</label><input id="fullname" name="fullname" placeholder="Jane Doe" required></div>
+          <div class="field"><label for="company">Company</label><input id="company" name="company" placeholder="Acme Inc." required></div>
+        </div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="jane@company.com" required></div>
+        <div class="field">
+          <label>What do you need?</label>
+          <div class="chips">
+            <input type="checkbox" id="c1" name="items" value="Illustration"><label for="c1">Illustration</label>
+            <input type="checkbox" id="c2" name="items" value="Brand identity"><label for="c2">Brand identity</label>
+            <input type="checkbox" id="c3" name="items" value="Lettering"><label for="c3">Lettering</label>
+            <input type="checkbox" id="c4" name="items" value="Visual system"><label for="c4">Visual system</label>
+            <input type="checkbox" id="c5" name="items" value="Something new"><label for="c5">Something new</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="timeline">Timeline</label>
+          <select id="timeline" name="timeline">
+            <option>Within a month</option>
+            <option selected>1–3 months</option>
+            <option>3+ months</option>
+            <option>Just exploring</option>
+          </select>
+        </div>
+        <div class="field"><label for="msg">The project</label><textarea id="msg" name="msg" placeholder="A launch, an event, a team gift…"></textarea></div>
+        <button type="submit" class="btn btn-solid">Send inquiry <span class="arrow">→</span></button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-big">Steven <em>Zamora</em></div>
+    <div class="footer-row">
+      <span>© <span id="year"></span> Steven Zamora Design</span>
+      <nav>
+        <a href="#craft">The Craft</a>
+        <a href="#about">About</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav state
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu
+  const toggle = document.getElementById('menuToggle');
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Inquiry form → pre-filled email (no backend needed)
+  document.getElementById('inquiry').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target;
+    if (!f.reportValidity()) return;
+    const items = [...f.querySelectorAll('input[name=items]:checked')].map(i => i.value).join(', ') || 'Not specified';
+    const body = `Name: ${f.fullname.value}\nCompany: ${f.company.value}\nEmail: ${f.email.value}\nServices: ${items}\nTimeline: ${f.timeline.value}\n\n${f.msg.value}`;
+    window.location.href = `mailto:stevenzamora.yt@gmail.com?subject=${encodeURIComponent('Design project — ' + f.company.value)}&body=${encodeURIComponent(body)}`;
+  });
+
+  // Hero collage carousel — one tile changes at a time, in turn, with at least 3s between changes
+  const CAROUSEL_INTERVAL = 3000;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    const tiles = [...document.querySelectorAll('.collage .tile')];
+    const advance = tile => {
+      const slides = [...tile.querySelectorAll('img.slide')];
+      if (slides.length < 2) return false;
+      const caption = tile.querySelector('.cap-text');
+      const cur = slides.findIndex(img => img.classList.contains('active'));
+      const next = slides[(cur + 1) % slides.length];
+      slides[cur]?.classList.remove('active');
+      next.classList.add('active');
+      caption.classList.add('fading');
+      setTimeout(() => { caption.textContent = next.dataset.caption; caption.classList.remove('fading'); }, 500);
+      return true;
+    };
+    let turn = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      // Skip tiles with a single image so the 3s beat is never wasted
+      for (let tries = 0; tries < tiles.length; tries++) {
+        const tile = tiles[turn++ % tiles.length];
+        if (advance(tile)) break;
+      }
+    }, CAROUSEL_INTERVAL);
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
